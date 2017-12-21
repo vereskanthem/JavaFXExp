@@ -1,11 +1,14 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -15,36 +18,24 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-//    TabPane tabsOnMainScreen;
-//    Tab     activeTab;
-
     @Override
     public void start(Stage primaryStage) throws Exception{
 
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
-        primaryStage.setTitle("JavaFXExam");
-        primaryStage.setScene(new Scene(root, 500, 275));
-
-//        tabsOnMainScreen = new TabPane();
-//        activeTab        = new Tab();
+//        Image i  = new Image("https://static.pexels.com/photos/67517/pexels-photo-67517.jpeg");
+//        ImageView iv = new ImageView();
 //
-//        activeTab.setText("1");
-//        activeTab.setContent(new Rectangle(200,200, Color.LIGHTSTEELBLUE));
+//        iv.setImage(i);
+//        iv.setFitWidth(100);
+//        iv.setFitHeight(100);
+
+//        root.getChildrenUnmodifiable().addAll(iv);
+
+        primaryStage.setTitle("JavaFXExam");
+        primaryStage.setScene(new Scene(root, 700, 400));
 
         primaryStage.show();
-
-    }
-//
-//    private AddTabsToRootWindow()   {
-//
-//
-//
-//    }
-
-    public void CreateInterfaceForTab(int id)   {
-
-        HBox currentTabBox = new HBox();
 
     }
 
