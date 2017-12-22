@@ -118,7 +118,7 @@ public class ImagesCollection {
 
     }
 
-    public List<Image> getListOfImageViewersForCurrentTab(String tabName) {
+    public List<Image> getListOfImagesForCurrentTab(String tabName) {
 
         try {
 

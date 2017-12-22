@@ -12,37 +12,13 @@
 
 <?import javafx.scene.layout.BorderPane?>
 
+<?import javafx.scene.control.ButtonBar?>
 <AnchorPane fx:id="mainPane" fx:controller="sample.Controller"
-                xmlns:fx="http://javafx.com/fxml">
-    <padding><Insets top="0" right="0"/></padding>
-    <!--<Button text="prev" onAction="#slideToPrevImage" alignment="CENTER_LEFT" />-->
-    <TabPane fx:id="tabsOnMainScreen">
-        <!--<tabs>-->
-        <!--<Tab fx:id="Nature" text="Природа" >-->
-            <!--&lt;!&ndash;<HBox spacing="10" alignment="CENTER">&ndash;&gt;-->
-            <!--&lt;!&ndash;<Text>text</Text>&ndash;&gt;-->
-        <!--</Tab>-->
+            xmlns:fx="http://javafx.com/fxml">
+    <!--<padding><Insets top="0" right="0"/></padding>-->
+    <TabPane fx:id="tabsOnMainScreen"/>
 
-        <!--<Tab fx:id="Birds" text="Птицы">-->
-
-        <!--</Tab>-->
-
-        <!--<Tab fx:id="Flowers" text="Цветы">-->
-
-        <!--</Tab>-->
-
-        <!--<Tab fx:id="Sea" text="Море">-->
-
-        <!--</Tab>-->
-
-        <!--<Tab fx:id="Like" text="Любимое">-->
-
-        <!--</Tab>-->
-
-        <!--<Tab fx:id="All" text="Все">-->
-
-        <!--</Tab>-->
-        <!--</tabs>-->
-    </TabPane>
-    <!--<Button text="next" onAction="#slideToNextImage" alignment="CENTER_RIGHT"/>-->
+    <Button fx:id="prevButton" text="prevButton" onAction="#slideToPrevImage" alignment="CENTER_LEFT" />
+    <Button fx:id="nextButton" text="nextButton" onAction="#slideToNextImage" alignment="CENTER_RIGHT"/>
+    <Button fx:id="addNewImage" text="addNewImage" onAction="#addNewImage" alignment="CENTER_RIGHT"/>
 </AnchorPane>

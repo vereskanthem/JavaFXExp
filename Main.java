@@ -33,7 +33,7 @@ public class Main extends Application {
 //        root.getChildrenUnmodifiable().addAll(iv);
 
         primaryStage.setTitle("JavaFXExam");
-        primaryStage.setScene(new Scene(root, 700, 400));
+        primaryStage.setScene(new Scene(root, 1000, 350));
 
         primaryStage.show();
 
