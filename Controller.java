@@ -43,16 +43,11 @@ public class Controller {
 
     private Map<Integer, String> mapOfExitingTabNames = new HashMap<Integer, String>();
 
-    private int currentShowNumber = 0;
+    private int[] currentShowNumberForTab = {0,0,0,0,0,0,0};
 
 //    List<Tab>    listOfExistingTabs     = new ArrayList<Tab>();
 
     private void makeTabsAndContent() {
-
-//        List<HBox> listOfHboxForDifferentTabs            = new ArrayList<HBox>();
-
-//        List<Button> prevButtonForTab = new ArrayList<>();
-//        List<Button> nextButtonForTab = new ArrayList<>();
 
         int paneCount;
 
@@ -90,12 +85,6 @@ public class Controller {
 
         }
 
-//        listOfGridPanesForDifferentTabs.
-
-//        GridPane grid = new GridPane();
-
-//        grid.getChildren().addAll(new Text("1"));
-//
 //        tabsOnMainScreen.getTabs().get(0);
 //        tabsOnMainScreen.getTabs().get(1).setContent(grid);
 
@@ -211,22 +200,50 @@ public class Controller {
 
     }
 
+    private int getTabNumberById(String activeTabId) {
+
+        int activeTabNumber = 0;
+
+        for(Map.Entry tabEntry : mapOfExitingTabNames.entrySet())    {
+
+            if(tabEntry.getValue() == activeTabId)  {
+
+                activeTabNumber = (int) tabEntry.getKey();
+
+            }
+
+        }
+
+        return activeTabNumber;
+
+    }
+
     public void slideToPrevImage(ActionEvent actionEvent) {
 
         final String activeTabId = tabsOnMainScreen.getSelectionModel().getSelectedItem().getId();
 
-        if(currentShowNumber > 0) {
+        int activeTabNumber = getTabNumberById(activeTabId);
 
-            currentShowNumber -= 1;
+        for(Map.Entry tabEntry : mapOfExitingTabNames.entrySet())    {
 
-            System.out.println("activeTabId = " + activeTabId + "; currentShowNumber: " + currentShowNumber);
+            if(tabEntry.getValue() == activeTabId)  {
 
-            showImagesFromNumber(activeTabId, currentShowNumber);
+                activeTabNumber = (int) tabEntry.getKey();
+
+            }
 
         }
 
-//
-//
+        if(currentShowNumberForTab[activeTabNumber] > 0) {
+
+            currentShowNumberForTab[activeTabNumber] -= 1;
+
+            System.out.println("activeTabId = " + activeTabId + "; currentShowNumber: " + currentShowNumberForTab[activeTabNumber]);
+
+            showImagesFromNumber(activeTabId, currentShowNumberForTab[activeTabNumber]);
+
+        }
+
 //        Thread thread = new Thread(new Runnable() {
 //            @Override
 //            public void run() {
@@ -244,15 +261,22 @@ public class Controller {
 
         final int countOfFilesInDirectory = ImagesCollection.getCountOfFilesInDirectory(activeTabId);
 
+        int activeTabNumber = getTabNumberById(activeTabId);
+
         if((countOfFilesInDirectory > 3)) {
 
-            currentShowNumber += 1;
+            if((countOfFilesInDirectory - currentShowNumberForTab[activeTabNumber]) > 3)    {
 
-            if(currentShowNumber < (countOfFilesInDirectory - 1)) {
+                currentShowNumberForTab[activeTabNumber] += 1;
 
-                System.out.println("activeTabId = " + activeTabId + "; currentShowNumber: " + currentShowNumber);
+                if(currentShowNumberForTab[activeTabNumber] < (countOfFilesInDirectory - 1)) {
 
-                showImagesFromNumber(activeTabId, currentShowNumber);
+                    System.out.println("activeTabId = " + activeTabId + "; currentShowNumber: " + currentShowNumberForTab[activeTabNumber]);
+                    System.out.println("countOfFilesInDirectory = " + countOfFilesInDirectory);
+
+                    showImagesFromNumber(activeTabId, currentShowNumberForTab[activeTabNumber]);
+
+                }
 
             }
 
