@@ -3,7 +3,9 @@ package sample;
 import com.sun.glass.ui.SystemClipboard;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
@@ -13,9 +15,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.*;
 
@@ -36,12 +40,12 @@ public class Controller {
     @FXML
     TabPane tabsOnMainScreen;
 
-    private List<String> listOfExistingTabNames = new ArrayList<String>(Arrays.asList("Природа","Птицы","Цветы","Море","Любимое","Все"));
+    public static List<String> listOfExistingTabNames = new ArrayList<String>(Arrays.asList("Природа","Птицы","Цветы","Море","Любимое","Все"));
 
-    private List<ImagesCollection> listOfImagesForCurrentTab = new ArrayList<ImagesCollection>();
-    private List<GridPane> listOfGridPanesForDifferentTabs   = new ArrayList<GridPane>();
+    private static List<ImagesCollection> listOfImagesForCurrentTab = new ArrayList<ImagesCollection>();
+    private static List<GridPane> listOfGridPanesForDifferentTabs   = new ArrayList<GridPane>();
 
-    private Map<Integer, String> mapOfExitingTabNames = new HashMap<Integer, String>();
+    private static Map<Integer, String> mapOfExitingTabNames = new HashMap<Integer, String>();
 
     private int[] currentShowNumberForTab = {0,0,0,0,0,0,0};
 
@@ -67,7 +71,7 @@ public class Controller {
 
         for(String tabName: listOfExistingTabNames) {
 
-            showImagesFromNumber(tabName, currentShowNumber);
+            showImagesFromNumber(tabName, 0);
 
             tabsOnMainScreen.getTabs().add(new Tab(tabName, listOfGridPanesForDifferentTabs.get(paneCount)));
 
@@ -106,9 +110,9 @@ public class Controller {
 
             currentGrid.getRowConstraints().add(new RowConstraints(200));
 
-            currentGrid.getColumnConstraints().add(new ColumnConstraints(300)); // column N is 100 wide
-            currentGrid.getColumnConstraints().add(new ColumnConstraints(300)); // column N is 100 wide
-            currentGrid.getColumnConstraints().add(new ColumnConstraints(300)); // column N is 100 wide
+            currentGrid.getColumnConstraints().add(new ColumnConstraints(300)); // column N is 300 wide
+            currentGrid.getColumnConstraints().add(new ColumnConstraints(300)); // column N is 300 wide
+            currentGrid.getColumnConstraints().add(new ColumnConstraints(300)); // column N is 300 wide
 
             currentGrid.setPadding(new Insets(10, 10, 10, 40));
             currentGrid.setHgap(10);
@@ -121,7 +125,7 @@ public class Controller {
 
     }
 
-    private void showImagesFromNumber(String tabName, int showFromNumber)    {
+    public static void showImagesFromNumber(String tabName, int showFromNumber)    {
 
         int paneCount = 0;
 
@@ -284,9 +288,20 @@ public class Controller {
 
     }
 
-    public void addNewImage(ActionEvent actionEvent) {
+    public void addNewImage(ActionEvent actionEvent) throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("AddForm.fxml"));
+
+        Stage stage = new Stage();
+
+        stage.setTitle("Добавить изображение");
+        stage.setScene(new Scene(root, 370, 210));
+        stage.setResizable(false);
+        stage.show();
 
 
+
+//        System.out.println("ActionName: " + actionEvent.getEventType().getName());
 
     }
 
