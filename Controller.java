@@ -21,6 +21,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class Controller {
@@ -40,7 +43,7 @@ public class Controller {
     @FXML
     TabPane tabsOnMainScreen;
 
-    public static List<String> listOfExistingTabNames = new ArrayList<String>(Arrays.asList("Природа","Птицы","Цветы","Море","Любимое","Все"));
+    public static List<String> listOfExistingTabNames = new ArrayList<String>(Arrays.asList("Ещё что-то","Природа","Птицы","Цветы","Море","Любимое","Все"));
 
     private static List<ImagesCollection> listOfImagesForCurrentTab = new ArrayList<ImagesCollection>();
     private static List<GridPane> listOfGridPanesForDifferentTabs   = new ArrayList<GridPane>();
@@ -50,6 +53,32 @@ public class Controller {
     private int[] currentShowNumberForTab = {0,0,0,0,0,0,0};
 
 //    List<Tab>    listOfExistingTabs     = new ArrayList<Tab>();
+
+    public void makeUniqCatalogsForEachTab(String tabName) throws IOException {
+
+        String imagesPath = System.getProperty("user.dir") + "/images/" + tabName;
+
+        Path pathToCatalogWithImages = Paths.get(imagesPath);
+
+        if(Files.exists(pathToCatalogWithImages))   {
+
+        }   else   {
+
+            try {
+
+                Files.createDirectory(pathToCatalogWithImages);
+
+            } catch(IOException e)    {
+
+                System.out.println("Error: makeUniqCatalogsForEachTab. Cannot create directory: " + pathToCatalogWithImages);
+
+            }
+
+            System.out.println("Create: " + pathToCatalogWithImages);
+
+        }
+
+    }
 
     private void makeTabsAndContent() {
 
@@ -70,6 +99,16 @@ public class Controller {
         paneCount = 0;
 
         for(String tabName: listOfExistingTabNames) {
+
+            try {
+
+                makeUniqCatalogsForEachTab(tabName);
+
+            } catch(IOException e)   {
+
+                e.printStackTrace();
+
+            }
 
             showImagesFromNumber(tabName, 0);
 
@@ -130,8 +169,12 @@ public class Controller {
         int paneCount = 0;
 
         ImageView imageView1;
-        ImageView imageView3;
         ImageView imageView2;
+        ImageView imageView3;
+
+        ImageView nullImageView = new ImageView();
+
+        nullImageView.setImage(null);
 
         for(Map.Entry currentMapEntry: mapOfExitingTabNames.entrySet())  {
 
@@ -152,11 +195,16 @@ public class Controller {
 
         int iterationCount = 0;
 
+        currentGrid.getChildren().clear();
+
         for(int imgCount = showFromNumber; imgCount < countOfImagesForTab; imgCount++) {
 
             Image currentImage = imagesOnGrid.getListOfImagesForCurrentTab(tabName).get(imgCount);
 //
             if(iterationCount == 0)   {
+
+//                currentGrid.setRowIndex(nullImageView, 0);
+//                currentGrid.setColumnIndex(nullImageView, 0);
 
                 imageView1 = new ImageView(currentImage);
 
@@ -172,6 +220,13 @@ public class Controller {
 
             if(iterationCount == 1)   {
 
+//                currentGrid.setRowIndex(nullImageView, 0);
+//                currentGrid.setColumnIndex(nullImageView, 1);
+//
+//                currentGrid.getChildren().add(nullImageView);
+
+//                currentGrid.getChildren().add(nullImageView);
+
                 imageView2 = new ImageView(currentImage);
 
                 imageView2.setFitHeight(200);
@@ -185,6 +240,11 @@ public class Controller {
             }
 
             if(iterationCount == 2)   {
+
+                currentGrid.setRowIndex(nullImageView, 0);
+                currentGrid.setColumnIndex(nullImageView, 2);
+
+                currentGrid.getChildren().add(nullImageView);
 
                 imageView3 = new ImageView(currentImage);
 
@@ -267,7 +327,7 @@ public class Controller {
 
         int activeTabNumber = getTabNumberById(activeTabId);
 
-        if((countOfFilesInDirectory > 3)) {
+        if((countOfFilesInDirectory > 2)) {
 
             if((countOfFilesInDirectory - currentShowNumberForTab[activeTabNumber]) > 3)    {
 
@@ -299,8 +359,6 @@ public class Controller {
         stage.setResizable(false);
         stage.show();
 
-
-
 //        System.out.println("ActionName: " + actionEvent.getEventType().getName());
 
     }
@@ -320,6 +378,8 @@ public class Controller {
 
         mainPane.setBottomAnchor(addNewImage,20.0);
         mainPane.setLeftAnchor(addNewImage,20.0);
+
+        tabsOnMainScreen.setCenterShape(true);
 
 //        mainPane.setLeftAnchor(nextButton,10.0);
 

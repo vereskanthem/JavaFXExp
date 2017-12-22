@@ -94,9 +94,9 @@ public class AddForm {
 
                 if (openedFile != null) {
 
-                    System.out.println("Copy To: " + outputDirectoryName);
-
                     if(outDir != null) {
+
+                        System.out.println("Copy To: " + outputDirectoryName);
 
                         FileUtils.copyFileToDirectory(openedFile, outDir);
 
@@ -104,7 +104,9 @@ public class AddForm {
 
                     if(outDirForAll != null) {
 
-                        System.out.println(outDirForAll.getName() + " == " + openedFile.getName());
+                        System.out.println("Copy To All: " + outputDirectoryName);
+
+//                        System.out.println(outDirForAll.getName() + " == " + openedFile.getName());
                         FileUtils.copyFileToDirectory(openedFile, outDirForAll);
 
                     }
@@ -112,6 +114,7 @@ public class AddForm {
                 }
 
                 Controller.showImagesFromNumber(choosedCategory,0);
+                Controller.showImagesFromNumber("Все",0);
 
             }
 

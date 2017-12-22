@@ -18,32 +18,6 @@ class ImagesCollection {
 
     private List<Image> listOfImagesForCurrentTab = new ArrayList<>();
 
-    private void makeUniqCatalogsForEachTab(String tabName) throws IOException {
-
-        String imagesPath = System.getProperty("user.dir") + "/images/" + tabName;
-
-        Path pathToCatalogWithImages = Paths.get(imagesPath);
-
-        if(Files.exists(pathToCatalogWithImages))   {
-
-        }   else   {
-
-            try {
-
-                Files.createDirectory(pathToCatalogWithImages);
-
-            } catch(IOException e)    {
-
-                System.out.println("Error: makeUniqCatalogsForEachTab. Cannot create directory: " + pathToCatalogWithImages);
-
-            }
-
-            System.out.println("Create: " + pathToCatalogWithImages);
-
-        }
-
-    }
-
     private boolean getDirExistOrNot(String directory)  {
 
         String imagesPath = System.getProperty("user.dir") + "/images/" + directory;
@@ -119,16 +93,6 @@ class ImagesCollection {
     }
 
     public List<Image> getListOfImagesForCurrentTab(String tabName) {
-
-        try {
-
-            makeUniqCatalogsForEachTab(tabName);
-
-        } catch(IOException e)   {
-
-            e.printStackTrace();
-
-        }
 
         if(getDirExistOrNot(tabName))    {
 
