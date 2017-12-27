@@ -48,9 +48,9 @@ public class Controller {
     private static List<ImagesCollection> listOfImagesForCurrentTab = new ArrayList<ImagesCollection>();
     private static List<GridPane> listOfGridPanesForDifferentTabs   = new ArrayList<GridPane>();
 
-    private static Map<Integer, String> mapOfExitingTabNames = new HashMap<Integer, String>();
+    public static Map<Integer, String> mapOfExitingTabNames = new HashMap<Integer, String>();
 
-    private int[] currentShowNumberForTab = {0,0,0,0,0,0,0};
+    public static int[] currentShowNumberForTab = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 //    List<Tab>    listOfExistingTabs     = new ArrayList<Tab>();
 
@@ -197,9 +197,13 @@ public class Controller {
 
         currentGrid.getChildren().clear();
 
+        List<Image> listOfImages = imagesOnGrid.getListOfImagesForCurrentTab(tabName);
+
+        System.out.println("countOfImagesForTab = " + countOfImagesForTab);
+
         for(int imgCount = showFromNumber; imgCount < countOfImagesForTab; imgCount++) {
 
-            Image currentImage = imagesOnGrid.getListOfImagesForCurrentTab(tabName).get(imgCount);
+            Image currentImage = listOfImages.get(imgCount);
 //
             if(iterationCount == 0)   {
 
@@ -241,10 +245,10 @@ public class Controller {
 
             if(iterationCount == 2)   {
 
-                currentGrid.setRowIndex(nullImageView, 0);
-                currentGrid.setColumnIndex(nullImageView, 2);
+//                currentGrid.setRowIndex(nullImageView, 0);
+//                currentGrid.setColumnIndex(nullImageView, 2);
 
-                currentGrid.getChildren().add(nullImageView);
+                //currentGrid.getChildren().add(nullImageView);
 
                 imageView3 = new ImageView(currentImage);
 
@@ -338,7 +342,7 @@ public class Controller {
                     System.out.println("activeTabId = " + activeTabId + "; currentShowNumber: " + currentShowNumberForTab[activeTabNumber]);
                     System.out.println("countOfFilesInDirectory = " + countOfFilesInDirectory);
 
-                    showImagesFromNumber(activeTabId, currentShowNumberForTab[activeTabNumber]);
+                    showImagesFromNumber(activeTabId, currentShowNumberForTab[activeTabNumber] + 1);
 
                 }
 

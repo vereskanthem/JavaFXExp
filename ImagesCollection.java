@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 class ImagesCollection {
@@ -56,6 +57,8 @@ class ImagesCollection {
 
         }
 
+        Collections.sort(listOfFilesInDir);
+
         return listOfFilesInDir;
 
     }
@@ -72,7 +75,11 @@ class ImagesCollection {
 
             int countOfFiles = 0;
 
-            for (File file : files) {
+            List<File> filesBuffer = files;
+
+            Collections.sort(filesBuffer);
+
+            for (File file : filesBuffer) {
 
                 System.out.println(file.toString());
 

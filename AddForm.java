@@ -13,6 +13,9 @@ import javafx.stage.Window;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -70,8 +73,6 @@ public class AddForm {
 
             System.out.println("Opened File: " + openedFile.getName());
 
-
-
         }
 
     }
@@ -90,6 +91,16 @@ public class AddForm {
             File outDir = new File(outputDirectoryName);
             File outDirForAll = new File(outputDirectoryNameForAll);
 
+            DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy-HHmmss");
+
+            Date date = new Date();
+
+            File sourceFile = new File(outputDirectoryName + openedFile.getName());
+            File resultFile = new File(outputDirectoryName + dateFormat.format(date) + openedFile.getName());
+
+            File sourceFileForAll = new File(outputDirectoryNameForAll + openedFile.getName());
+            File resultFileForAll = new File(outputDirectoryNameForAll + dateFormat.format(date) + openedFile.getName());
+
             if (!choosedCategory.equals("")) {
 
                 if (openedFile != null) {
@@ -100,21 +111,39 @@ public class AddForm {
 
                         FileUtils.copyFileToDirectory(openedFile, outDir);
 
+                        FileUtils.moveFile(sourceFile, resultFile);
+
                     }
 
                     if(outDirForAll != null) {
 
-                        System.out.println("Copy To All: " + outputDirectoryName);
+                        System.out.println("Copy To All: " + outputDirectoryNameForAll);
 
 //                        System.out.println(outDirForAll.getName() + " == " + openedFile.getName());
                         FileUtils.copyFileToDirectory(openedFile, outDirForAll);
+
+                        FileUtils.moveFile(sourceFileForAll, resultFileForAll);
 
                     }
 
                 }
 
-                Controller.showImagesFromNumber(choosedCategory,0);
-                Controller.showImagesFromNumber("Все",0);
+                Integer categoryIndex = 0;
+
+                for(Map.Entry entry: Controller.mapOfExitingTabNames.entrySet())    {
+
+                    if(entry.getValue().equals(choosedCategory)) {
+
+                        categoryIndex = (Integer) entry.getKey();
+
+                    }
+
+                }
+
+                System.out.println("categoryIndex: " + categoryIndex);
+
+                Controller.showImagesFromNumber(choosedCategory,Controller.currentShowNumberForTab[categoryIndex]);
+//                Controller.showImagesFromNumber("Все",0);
 
             }
 
