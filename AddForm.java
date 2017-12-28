@@ -142,8 +142,9 @@ public class AddForm {
 
                 System.out.println("categoryIndex: " + categoryIndex);
 
-                Controller.showImagesFromNumber(choosedCategory,Controller.currentShowNumberForTab[categoryIndex]);
-//                Controller.showImagesFromNumber("Все",0);
+//                Controller.showImagesFromNumber(choosedCategory,Controller.currentShowNumberForTab[categoryIndex]);
+                Controller.showImagesFromNumber(choosedCategory,0);
+                Controller.showImagesFromNumber("Все",0);
 
             }
 

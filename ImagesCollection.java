@@ -71,6 +71,8 @@ class ImagesCollection {
 
     private void addFilesToImage(List<File> files) throws FileNotFoundException,IOException {
 
+        BufferedImage bufferedImage = null;
+
         if(files.size() != 0) {
 
             int countOfFiles = 0;
@@ -79,17 +81,19 @@ class ImagesCollection {
 
             Collections.sort(filesBuffer);
 
+            listOfImagesForCurrentTab.clear();
+
             for (File file : filesBuffer) {
 
-                System.out.println(file.toString());
-
-                BufferedImage bufferedImage = ImageIO.read(file);
+                bufferedImage = ImageIO.read(file);
 
                 listOfImagesForCurrentTab.add(SwingFXUtils.toFXImage(bufferedImage,null));
 
                 countOfFiles++;
 
             }
+
+            System.out.println("addFilesToImage: countOfFiles = " + countOfFiles);
 
         }   else    {
 
@@ -100,6 +104,22 @@ class ImagesCollection {
     }
 
     public List<Image> getListOfImagesForCurrentTab(String tabName) {
+
+        List<File> fileList = getFilesInDirectory(tabName);
+
+        String fileName;
+
+        int fileCount = 0;
+
+        for(File file: fileList)    {
+
+            fileName = fileList.get(fileCount).getName();
+
+            System.out.println("getListOfImagesForCurrentTab: File = " + fileName);
+
+            fileCount++;
+
+        }
 
         if(getDirExistOrNot(tabName))    {
 

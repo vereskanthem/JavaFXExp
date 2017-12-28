@@ -21,4 +21,5 @@
     <Button fx:id="prevButton" text="prevButton" onAction="#slideToPrevImage" alignment="CENTER_LEFT" />
     <Button fx:id="nextButton" text="nextButton" onAction="#slideToNextImage" alignment="CENTER_RIGHT"/>
     <Button fx:id="addNewImage" text="addNewImage" onAction="#addNewImage" alignment="CENTER_RIGHT"/>
+    <Button fx:id="showImageFromNumberTestButton" text="showImageFromNumberTestButton" onAction="#showImageFromNumberTestButton" alignment="CENTER_RIGHT"/>
 </AnchorPane>

@@ -41,6 +41,9 @@ public class Controller {
     Button addNewImage;
 
     @FXML
+    Button showImageFromNumberTestButton;
+
+    @FXML
     TabPane tabsOnMainScreen;
 
     public static List<String> listOfExistingTabNames = new ArrayList<String>(Arrays.asList("Ещё что-то","Природа","Птицы","Цветы","Море","Любимое","Все"));
@@ -164,9 +167,28 @@ public class Controller {
 
     }
 
+    private static void showWindowWithImage(Image currentImage)  {
+
+        ImageView currentImageView = new ImageView(currentImage);
+
+        currentImageView.setFitWidth(300);
+        currentImageView.setFitHeight(300);
+
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().add(currentImageView);
+
+//                Scene scene = new Scene(stackPane);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(stackPane,300,300));
+        stage.show();
+
+    }
+
     public static void showImagesFromNumber(String tabName, int showFromNumber)    {
 
         int paneCount = 0;
+
+        Image currentImage;
 
         ImageView imageView1;
         ImageView imageView2;
@@ -199,13 +221,25 @@ public class Controller {
 
         List<Image> listOfImages = imagesOnGrid.getListOfImagesForCurrentTab(tabName);
 
+//        System.out.println("showImagesFromNumber: listOfImages.size() = " + listOfImages.size());
+
+//        for(Image img: listOfImages)   {
+//
+//            showWindowWithImage(img);
+//
+//        }
+
         System.out.println("countOfImagesForTab = " + countOfImagesForTab);
 
         for(int imgCount = showFromNumber; imgCount < countOfImagesForTab; imgCount++) {
 
-            Image currentImage = listOfImages.get(imgCount);
+            System.out.println("showImagesFromNumber: iterationCount = " + iterationCount);
 //
             if(iterationCount == 0)   {
+
+                currentImage = listOfImages.get(0);
+
+//                showWindowWithImage(currentImage);
 
 //                currentGrid.setRowIndex(nullImageView, 0);
 //                currentGrid.setColumnIndex(nullImageView, 0);
@@ -215,14 +249,18 @@ public class Controller {
                 imageView1.setFitHeight(200);
                 imageView1.setFitWidth(300);
 
-                currentGrid.setRowIndex(imageView1, 0);
-                currentGrid.setColumnIndex(imageView1, 0);
+                GridPane.setRowIndex(imageView1, 0);
+                GridPane.setColumnIndex(imageView1, 0);
 
                 currentGrid.getChildren().add(imageView1);
 
             }
 
             if(iterationCount == 1)   {
+
+                currentImage = listOfImages.get(1);
+
+//                showWindowWithImage(currentImage);
 
 //                currentGrid.setRowIndex(nullImageView, 0);
 //                currentGrid.setColumnIndex(nullImageView, 1);
@@ -236,14 +274,18 @@ public class Controller {
                 imageView2.setFitHeight(200);
                 imageView2.setFitWidth(300);
 
-                currentGrid.setRowIndex(imageView2, 0);
-                currentGrid.setColumnIndex(imageView2, 1);
+                GridPane.setRowIndex(imageView2, 0);
+                GridPane.setColumnIndex(imageView2, 1);
 
                 currentGrid.getChildren().add(imageView2);
 
             }
 
             if(iterationCount == 2)   {
+
+                currentImage = listOfImages.get(imgCount);
+
+//                showWindowWithImage(currentImage);
 
 //                currentGrid.setRowIndex(nullImageView, 0);
 //                currentGrid.setColumnIndex(nullImageView, 2);
@@ -255,8 +297,8 @@ public class Controller {
                 imageView3.setFitHeight(200);
                 imageView3.setFitWidth(300);
 
-                currentGrid.setRowIndex(imageView3, 0);
-                currentGrid.setColumnIndex(imageView3, 2);
+                GridPane.setRowIndex(imageView3, 0);
+                GridPane.setColumnIndex(imageView3, 2);
 
                 currentGrid.getChildren().add(imageView3);
 
@@ -265,6 +307,16 @@ public class Controller {
             iterationCount++;
 
         }
+
+    }
+
+    public void showImageFromNumberTestButton(ActionEvent actionEvent) {
+
+        final String activeTabId = tabsOnMainScreen.getSelectionModel().getSelectedItem().getId();
+
+        int activeTabNumber = getTabNumberById(activeTabId);
+
+        showImagesFromNumber(activeTabId, 0);
 
     }
 
@@ -342,7 +394,7 @@ public class Controller {
                     System.out.println("activeTabId = " + activeTabId + "; currentShowNumber: " + currentShowNumberForTab[activeTabNumber]);
                     System.out.println("countOfFilesInDirectory = " + countOfFilesInDirectory);
 
-                    showImagesFromNumber(activeTabId, currentShowNumberForTab[activeTabNumber] + 1);
+                    showImagesFromNumber(activeTabId, currentShowNumberForTab[activeTabNumber]);
 
                 }
 
@@ -382,6 +434,9 @@ public class Controller {
 
         mainPane.setBottomAnchor(addNewImage,20.0);
         mainPane.setLeftAnchor(addNewImage,20.0);
+
+        mainPane.setBottomAnchor(showImageFromNumberTestButton,20.0);
+        mainPane.setLeftAnchor(showImageFromNumberTestButton,180.0);
 
         tabsOnMainScreen.setCenterShape(true);
 
